@@ -19,7 +19,7 @@ type menuT = {
 };
 
 export type State = {
-    openKeys?: Array<?string>
+    openKeys: Array<string>
 }
 
 export type Props = {
@@ -39,10 +39,8 @@ export default class Sider extends React.Component<Props, State> {
 
     onOpenChange = (openKeys: Array<string>) => {
         const latestOpenKey = openKeys.find(key => this.state.openKeys.indexOf(key) === -1);
-        const a = {b: 1};
         if (rootSubmenuKeys.indexOf(latestOpenKey) === -1) {
             this.setState({openKeys});
-            console.log(a);
         } else {
             this.setState({
                 openKeys: latestOpenKey ? [latestOpenKey] : [],
