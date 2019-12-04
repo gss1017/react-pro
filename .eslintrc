@@ -29,6 +29,7 @@
   // 继承第三方校验规则eslit-config-airbnb
   "extends": [
     "eslint:recommended",
+    "plugin:flowtype/recommended",
     "plugin:react/recommended",
     "plugin:import/errors",
     "plugin:import/warnings",

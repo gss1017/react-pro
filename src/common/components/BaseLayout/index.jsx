@@ -23,7 +23,7 @@ export default class BaseLayout extends React.Component {
     render() {
         return (
             <div className={s.layoutContainer}>
-                <Sider menus={menus}/>
+                <Sider menus={menus} />
                 <main className={s.layoutContentWrapper}>
                     <header className={s.layoutHeaderWrapper}>
                         <div className={s.headerItemLeftWrapper}>
