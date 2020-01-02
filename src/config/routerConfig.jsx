@@ -1,32 +1,21 @@
 import React from 'react';
-import {BrowserRouter, Route, Switch, Redirect} from 'react-router-dom';
 import Loadable from 'react-loadable';
-import omit from 'lodash/omit';
 import BaseLayout from 'common/components/BaseLayout';
 import NormalLayout from 'common/components/NormalLayout';
 
-// pages
 const Loading = () => <div>Loading...</div>;
-const Home = Loadable({
-    loader: () => import(/* webpackChunkName: 'Home' */'pages/home'),
+const LazyLoad = loader => Loadable({
+    loader,
     loading: Loading
 });
-const Page2 = Loadable({
-    loader: () => import(/* webpackChunkName: 'Page2' */'pages/page2'),
-    loading: Loading
-});
-const Page3 = Loadable({
-    loader: () => import(/* webpackChunkName: 'Page3' */'pages/page3'),
-    loading: Loading
-});
-const Login = Loadable({
-    loader: () => import(/* webpackChunkName: 'Login' */'pages/login'),
-    loading: Loading
-});
-const P404 = Loadable({
-    loader: () => import(/* webpackChunkName: 'P404' */'pages/404'),
-    loading: Loading
-});
+
+// pages
+const Home = LazyLoad(() => import(/* webpackChunkName: 'Home' */'pages/home'));
+const Page2 = LazyLoad(() => import(/* webpackChunkName: 'Page2' */'pages/page2'));
+const Page3 = LazyLoad(() => import(/* webpackChunkName: 'Page3' */'pages/page3'));
+const Login = LazyLoad(() => import(/* webpackChunkName: 'Login' */'pages/login'));
+const P404 = LazyLoad(() => import(/* webpackChunkName: 'P404' */'pages/404'));
+
 // permissions: admin | user
 const baseLayoutRoutes = [
     {
@@ -61,7 +50,7 @@ const baseLayoutRoutes = [
 
 const normalLayoutRoutes = [
     {
-        path: '/user/login',
+        path: '/user',
         redirect: '/user/login',
         exact: true,
     },
@@ -72,11 +61,18 @@ const normalLayoutRoutes = [
         path: '/user/login',
         permissions: ['user', 'admin'],
         exact: true
+    },
+    {
+        title: 'Login Out',
+        key: 'loginOut',
+        component: Page3,
+        path: '/user/loginOut',
+        exact: true
     }
 ];
 
 // 不同布局的路由
-const routes = [
+export const routes = [
     {
         path: '/user',
         component: NormalLayout,
@@ -90,7 +86,7 @@ const routes = [
     }
 ];
 // 修改Redirect的索引
-function modifyRedirectIndex(arr) {
+export function modifyRedirectIndex(arr) {
     if (!Array.isArray(arr)) return arr;
     const index404 = arr.findIndex(item => item.title === '404');
     const redirect = arr.find(item => item.redirect);
@@ -107,53 +103,4 @@ function modifyRedirectIndex(arr) {
         }
     }
     return arr;
-}
-function renderRoutes(arr) {
-    const routeArr = modifyRedirectIndex(arr);
-    return routeArr
-        ? (
-            <Switch>
-                {routeArr.map((route, i) => {
-                    const {component: Component} = route;
-                    const currentProps = omit({...route}, 'component');
-                    if (route.redirect) {
-                        return (
-                            <Redirect
-                                key={route.key || i}
-                                form={route.path}
-                                to={route.redirect}
-                                exact={route.exact}
-                            />
-                        );
-                    }
-                    return (
-                        <Route
-                            key={i}
-                            {...currentProps}
-                            component={(props) => {
-                                const childRoutes = renderRoutes(route.routes);
-                                if (route.component) {
-                                    return (
-                                        <Component {...props} route={route}>
-                                            {childRoutes}
-                                        </Component>
-                                    );
-                                } else {
-                                    return childRoutes;
-                                }
-                            }}
-                        />
-                    );
-                })}
-            </Switch>
-        )
-        : null;
-}
-
-export default function Router(props) {
-    return (
-        <BrowserRouter>
-            {renderRoutes(routes)}
-        </BrowserRouter>
-    );
 }

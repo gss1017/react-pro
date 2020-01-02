@@ -1,6 +1,6 @@
 import React from 'react';
-import Router from 'config/routerConfig';
 import {setAuthority} from 'common/utils/authrity';
+import Router from './router';
 // import style from './index.scss';
 
 // 格式化默认css
