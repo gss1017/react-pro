@@ -1,28 +1,35 @@
+// 只有第一级选项才有icon
 export default [
     {
-        title: 'sub1',
-        key: 'sub1',
+        name: 'Home',
+        key: 'Home',
         level: 1,
         icon: 'home',
         childMenus: [
             {
-                title: 'sub2',
-                key: 'sub2',
-                url: '/', // 选项要到达的地址
+                name: 'page2',
+                key: 'page2',
+                url: '/page2', // 选项要跳转的地址
+                level: 2,
+            },
+            {
+                name: 'home-1',
+                key: 'home-1',
+                url: '/home', // 选项要跳转的地址
                 level: 2,
             }
         ]
     },
     {
-        title: 'sub3',
-        key: 'sub3',
+        name: 'page3-c',
+        key: 'page3-c',
         level: 1,
         icon: 'hdd',
         childMenus: [
             {
-                title: 'sub4',
-                key: 'sub4',
-                url: '/', // 选项要到达的地址
+                name: 'page3',
+                key: 'page3',
+                url: '/page3', // 选项要跳转的地址
                 level: 2,
             }
         ]

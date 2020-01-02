@@ -1,7 +1,9 @@
 import React from 'react';
 import {Menu, Icon, Dropdown} from 'antd';
 import Sider from 'common/components/Sider';
+import Authorized from 'common/components/Authorized';
 import menus from 'config/menuConfig';
+import {getAuthorityFromRouter} from './utils';
 import s from './index.scss';
 
 const menu = (
@@ -21,13 +23,15 @@ const menu = (
 export default class BaseLayout extends React.Component {
 
     render() {
+        const {route, location} = this.props;
+        const authority = getAuthorityFromRouter(route.routes, location.pathname || '/');
         return (
             <div className={s.layoutContainer}>
                 <Sider menus={menus} />
                 <main className={s.layoutContentWrapper}>
                     <header className={s.layoutHeaderWrapper}>
                         <div className={s.headerItemLeftWrapper}>
-                            左边的功能
+                            XX
                         </div>
                         <div className={s.headerItemRightWrapper}>
                             <Dropdown overlay={menu}>
@@ -40,7 +44,9 @@ export default class BaseLayout extends React.Component {
                         </div>
                     </header>
                     <section>
-                        {this.props.children}
+                        <Authorized authority={authority.permissions}>
+                            {this.props.children}
+                        </Authorized>
                     </section>
                     <footer>
                         footer

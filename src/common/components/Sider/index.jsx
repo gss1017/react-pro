@@ -10,12 +10,12 @@ const MenuItem = Menu.Item;
 const rootSubmenuKeys = []; // 支持多级目录
 
 type menuT = {
-    title: string,
+    name: string,
     key: string,
     url?: string, // 选项要到达的地址
     level: number,
     icon?: string,
-    childMenus?: Array<?menuT>
+    childMenus?: Array<menuT>
 };
 
 export type State = {
@@ -52,7 +52,7 @@ export default class Sider extends React.Component<Props, State> {
         const title = (
             <span>
                 {menu.icon && <Icon type={menu.icon} />}
-                <span>{menu.title}</span>
+                <span>{menu.name}</span>
             </span>
         );
         if (Array.isArray(menu.childMenus)) {
@@ -68,7 +68,7 @@ export default class Sider extends React.Component<Props, State> {
         } else {
             return (
                 <MenuItem key={`${menu.key}_${menu.level}`}>
-                    <Link to={menu.url}>{menu.title}</Link>
+                    <Link to={menu.url}>{menu.name}</Link>
                 </MenuItem>
             );
         }
@@ -80,7 +80,7 @@ export default class Sider extends React.Component<Props, State> {
         return (
             <aside className={s.layoutSideWrapper}>
                 <a href="/" className={s.logo}>
-                    <img src={logoUrl}/>
+                    <img src={logoUrl} title="logo"/>
                 </a>
                 <div className={s.menuBtnWrapper}>
                     <Menu

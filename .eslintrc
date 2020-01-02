@@ -78,6 +78,7 @@
     "no-empty-function": ["error", {"allow": ["arrowFunctions"]}],
     "no-lonely-if": "off",
     "no-nested-ternary": "off",
+    "no-underscore-dangle": "off",
     "no-mixed-operators": "off",
     "no-multi-spaces": ["error", {"ignoreEOLComments": true}],
     "no-param-reassign": ["error", {"props": false}],
@@ -85,7 +86,7 @@
     "no-prototype-builtins": "off",
     "no-restricted-globals": ["off"], // 不做要求
     "no-return-assign": ["error", "except-parens"],
-    "no-underscore-dangle": ["error", {"allowAfterThis": true, "allowAfterSuper": true, "enforceInMethodNames": false}],
+//    "no-underscore-dangle": ["error", {"allowAfterThis": true, "allowAfterSuper": true, "enforceInMethodNames": false}],
     "no-unused-expressions": ["error", {"allowShortCircuit": true, "allowTernary": true, "allowTaggedTemplates": true}],
     "no-unused-vars": ["error", {"vars": "local", "args": "none"}],
     "no-use-before-define": ["error", {"functions": false, "classes": true}],
@@ -99,6 +100,7 @@
     // 不支持 私有域 @pkfare/xxx 的用法识别，关闭
     "import/no-extraneous-dependencies": "off",
     "import/no-unresolved":  "off",
+    "import/no-mutable-exports": "off", // 导出的内容不可变
 
     "jsx-a11y/anchor-is-valid": "off",
     "jsx-a11y/alt-text": "off",
