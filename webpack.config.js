@@ -172,10 +172,10 @@ module.exports = {
             }
         ]
     },
-    bail: true,
+    bail: false,
     plugins: [
         new HtmlWebpackPlugin({
-            title: 'hello react',
+            title: 'react pro',
             filename: 'index.html',
             template: path.resolve(SRC_PATH, 'index.html')
         }),

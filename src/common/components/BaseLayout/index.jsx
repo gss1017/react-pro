@@ -4,7 +4,8 @@ import {Link} from 'react-router-dom';
 import Sider from 'common/components/Sider';
 import Authorized from 'common/components/Authorized';
 import menus from 'config/menuConfig';
-import {getAuthorityFromRouter} from './utils';
+import PageContainer from '../PageContainer';
+import {getAuthorityFromRouter} from '../../utils/utils';
 import s from './index.scss';
 
 const BreadcrumbItem = Breadcrumb.Item;
@@ -18,7 +19,7 @@ const menu = (
         </Menu.Item>
         <Menu.Divider />
         <Menu.Item key="2">
-            退出
+            <Link to="/user">退出</Link>
         </Menu.Item>
     </Menu>
 );
@@ -82,33 +83,36 @@ export default class BaseLayout extends React.Component {
         const routeItem = getAuthorityFromRouter(route.routes, location.pathname || '/');
         const breadcrumbsData = this.getBreadcrumbsData(routeItem.breadcrumbs, route.routes);
         return (
-            <div className={s.layoutContainer}>
-                <Sider menus={menus} />
-                <main className={s.layoutContentWrapper}>
-                    <header className={s.layoutHeaderWrapper}>
-                        <div className={s.headerItemLeftWrapper}>
-                            {this.renderBreadcrumbs(breadcrumbsData)}
-                        </div>
-                        <div className={s.headerItemRightWrapper}>
-                            <Dropdown overlay={menu}>
-                                <span className={s.exitText}>
+            <PageContainer title={routeItem.title}>
+                <div className={s.layoutContainer}>
+                    <Sider menus={menus} />
+                    <main className={s.layoutContentWrapper}>
+                        <header className={s.layoutHeaderWrapper}>
+                            <div className={s.headerItemLeftWrapper}>
+                                {this.renderBreadcrumbs(breadcrumbsData)}
+                            </div>
+                            <div className={s.headerItemRightWrapper}>
+                                <Dropdown overlay={menu}>
+                                    <span className={s.exitText}>
                                     Hover me
-                                    {' '}
-                                    <Icon type="down" />
-                                </span>
-                            </Dropdown>
-                        </div>
-                    </header>
-                    <section>
-                        <Authorized authority={routeItem.permissions}>
-                            {this.props.children}
-                        </Authorized>
-                    </section>
-                    <footer>
-                        footer
-                    </footer>
-                </main>
-            </div>
+                                        {' '}
+                                        <Icon type="down" />
+                                    </span>
+                                </Dropdown>
+                            </div>
+                        </header>
+                        <section>
+                            <Authorized authority={routeItem.permissions}>
+                                {this.props.children}
+                            </Authorized>
+                        </section>
+                        <footer>
+                            footer
+                        </footer>
+                    </main>
+                </div>
+            </PageContainer>
+
         );
     }
 

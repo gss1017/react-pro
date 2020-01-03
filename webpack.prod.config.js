@@ -177,7 +177,7 @@ module.exports = {
     bail: true,
     plugins: [
         new HtmlWebpackPlugin({
-            title: 'hello react',
+            title: 'react pro',
             filename: 'index.html',
             hash: true, //防止缓存
             template: path.resolve(SRC_PATH, 'index.html'),
