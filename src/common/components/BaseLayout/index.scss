@@ -23,6 +23,10 @@ $window_height: 100vh;
     .headerItemLeftWrapper {
       float: left;
       text-align: left;
+
+      .breadcrumbContainer {
+        display: inline-block;
+      }
     }
 
     .headerItemRightWrapper {

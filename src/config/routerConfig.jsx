@@ -16,7 +16,15 @@ const Page3 = LazyLoad(() => import(/* webpackChunkName: 'Page3' */'pages/page3'
 const Login = LazyLoad(() => import(/* webpackChunkName: 'Login' */'pages/login'));
 const P404 = LazyLoad(() => import(/* webpackChunkName: 'P404' */'pages/404'));
 
-// permissions: admin | user
+/*
+* @title [string] 页面和面包屑名称
+* @key [string]
+* @component [React.Node] 页面元素
+* @path [string] 页面元素
+* @permissions [Array<string>] 页面可访问的权限 默认所有权限
+* @exact [boolean] 路由是否严格匹配 route 的一个props
+* route 的其他props...
+* */
 const baseLayoutRoutes = [
     {
         path: '/',
@@ -37,14 +45,16 @@ const baseLayoutRoutes = [
         component: Page2,
         path: '/page2',
         permissions: ['admin'],
-        exact: true
+        exact: true,
+        breadcrumbs: ['/page2']
     },
     {
         title: 'page3',
         key: 'page3',
         component: Page3,
         path: '/page3', // permissions 默认都有权限
-        exact: true
+        exact: true,
+        breadcrumbs: ['/page3']
     }
 ];
 
