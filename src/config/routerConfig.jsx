@@ -95,22 +95,25 @@ export const routes = [
         permissions: ['admin', 'user']
     }
 ];
+
+// todo 因为 redirect 标签先挂载，404的 route 没有生效
+// 解决办法 将 redirect 拆分出来单独做处理
 // 修改Redirect的索引
 export function modifyRedirectIndex(arr) {
     if (!Array.isArray(arr)) return arr;
     const index404 = arr.findIndex(item => item.title === '404');
     const redirect = arr.find(item => item.redirect);
     const index = arr.indexOf(redirect);
-    if (index > -1) {
-        if (index404 === -1) {
+    if (index404 === -1) {
+        if (index > -1) {
             arr.splice(index, 1);
             arr.push(redirect);
-            arr.push({
-                title: '404',
-                key: '404',
-                component: P404,
-            });
         }
+        arr.push({
+            title: '404',
+            key: '404',
+            component: P404
+        });
     }
     return arr;
 }

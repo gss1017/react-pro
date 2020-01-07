@@ -80,7 +80,8 @@ export default class BaseLayout extends React.Component {
 
     render() {
         const {route, location} = this.props;
-        const routeItem = getAuthorityFromRouter(route.routes, location.pathname || '/');
+        const routeItem = getAuthorityFromRouter(route.routes, location.pathname || '/')
+        || ({title: 'Not Found'});
         const breadcrumbsData = this.getBreadcrumbsData(routeItem.breadcrumbs, route.routes);
         return (
             <PageContainer title={routeItem.title}>

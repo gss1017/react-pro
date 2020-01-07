@@ -7,7 +7,8 @@ export default class NormalLayout extends React.Component {
 
     render() {
         const {route, location} = this.props;
-        const routeItem = getAuthorityFromRouter(route.routes, location.pathname || '/');
+        const routeItem = getAuthorityFromRouter(route.routes, location.pathname || '/')
+            || ({title: 'Not Found'});
         return (
             <PageContainer title={routeItem.title}>
                 <div className={s.layoutContainer}>
